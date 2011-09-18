@@ -31,6 +31,4 @@ object Test extends Application{
     cell3.play(new MP3("Dance of death"))
     cell3.connect("UNQ")
     
-  
-
 }
