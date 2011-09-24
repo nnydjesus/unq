@@ -1,4 +1,4 @@
-package arena
+package arena.traits
 
 import org.uqbar.lacar.ui.model.ControlBuilder;
 import org.uqbar.lacar.ui.model.ButtonBuilder;
@@ -11,7 +11,6 @@ trait AsDefaultButton extends Control{
     	builder match {
 		  case g2: ButtonBuilder => g2.setAsDefault();
     	}
-    	
     }
 
 }

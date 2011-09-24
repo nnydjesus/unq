@@ -1,4 +1,4 @@
-package arena;
+package arena
 
 import org.uqbar.arena.actions.MessageSend
 import org.uqbar.arena.widgets.Button
@@ -9,8 +9,8 @@ import tadp.blocbaster.entidades.Socio
 
 import org.uqbar.arena.windows.WindowOwner;
 
-class NuevoSocio(owner:WindowOwner) extends AbstractSocio(owner, new Socio()) {
+class EditSocio(owner:WindowOwner, socio:Socio) extends AbstractSocio(owner, socio) {
 	
-	override def executeTask() =  getHome().create(getModel());
+	override def executeTask() = getHome().update(getModel());
 	
 }

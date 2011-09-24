@@ -1,4 +1,4 @@
-package arena
+package arena.traits
 
 import org.uqbar.lacar.ui.model.ButtonBuilder;
 import org.uqbar.lacar.ui.model.ControlBuilder;
