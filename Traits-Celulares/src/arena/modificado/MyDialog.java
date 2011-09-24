@@ -1,4 +1,4 @@
-package arena;
+package arena.modificado;
 
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.windows.Dialog;
