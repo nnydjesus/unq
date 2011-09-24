@@ -10,10 +10,11 @@ import org.uqbar.arena.widgets.{Button, Label, Panel, Selector, TextBox}
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.commons.model.Home
 import videoclub.MyVideoclub
+import tadp.blocbaster.daos.Videoclub
 import tadp.blocbaster.entidades.{Ciudad, Socio}
 
 
-abstract class AbstractSocio(owner:WindowOwner, model:Socio) extends arena.Socio](owner, model) with ButtonAcept with ButtonCancel {
+abstract class AbstractSocio(owner:WindowOwner, model:Socio) extends MyDialog[Socio](owner, model) with ButtonAcept with ButtonCancel {
   
   var home:Home[Socio]= MyVideoclub.getInstance().getHome(classOf[Socio]);
 
