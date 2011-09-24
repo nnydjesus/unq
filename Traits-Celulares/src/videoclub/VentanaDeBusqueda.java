@@ -11,14 +11,13 @@ import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.commons.model.Search;
 import org.uqbar.commons.model.SearchByExample;
 
-import tadp.blocbaster.daos.Videoclub;
 import tadp.blocbaster.entidades.Socio;
 
 public abstract class VentanaDeBusqueda extends SimpleWindow<Search<Socio>> {
 	private static final long serialVersionUID = 1L;
 
 	public VentanaDeBusqueda(WindowOwner owner) {
-		super(owner, new SearchByExample<Socio>(Videoclub.getInstance().getHome(Socio.class)));
+		super(owner, new SearchByExample<Socio>(MyVideoclub.getInstance().getHome(Socio.class)));
 	}
 
 	@Override
