@@ -4,9 +4,8 @@ import com.uqbar.commons.collections.Transformer
 import java.text.SimpleDateFormat
 import org.uqbar.arena.actions.MessageSend
 import org.uqbar.arena.layout.ColumnLayout
-import java.util.Arrays
 import org.uqbar.arena.widgets.tables.{Column, Table}
-import org.uqbar.arena.widgets.{Button, Control, Label, Panel, Selector, TextBox}
+import org.uqbar.arena.widgets.{Button, Control, Label, Panel, TextBox}
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.windows.{Dialog, WindowOwner}
 import org.uqbar.commons.model.{Search, SearchByExample}
@@ -92,9 +91,7 @@ class Buscador(owner:WindowOwner) extends VentanaDeBusqueda(owner) {
 		crearSocio.open();
 	}
 
-	override def createEditor(selected:Socio) = {null
-//		return new ModificarSocioDialog(this, selected);
-	}
+	override def createEditor(selected:Socio) = new EditSocio(this, selected);
 
 
 }

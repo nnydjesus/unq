@@ -1,33 +1,21 @@
 package arena;
 
 
+import arena.traits.{ButtonAcept,ButtonCancel}
+import arena.modificado.MyDialog
 import java.util.Arrays
 import org.uqbar.arena.bindings.DateAdapter
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.{Button, Label, Panel, Selector, TextBox}
-import org.uqbar.arena.windows.{Dialog, WindowOwner}
+import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.commons.model.Home
-import tadp.blocbaster.daos.Videoclub
+import videoclub.MyVideoclub
 import tadp.blocbaster.entidades.{Ciudad, Socio}
 
 
-abstract class AbstractSocio(owner:WindowOwner, model:Socio) extends Dialog[Socio](owner, model) {
+abstract class AbstractSocio(owner:WindowOwner, model:Socio) extends arena.Socio](owner, model) with ButtonAcept with ButtonCancel {
   
-  var home:Home[Socio]= Videoclub.getInstance().getHome( classOf[Socio]);
-  
-	override def addActions(container:Panel)= {
-		var button = new Button(container)  with AsDefaultButton with DisableOnErrorButton ;
-		
-		button.setCaption("Aceptar")
-			  .onClick(new Function(this.accept));
-//			.onClick(new MessageSend(this, "accept"));
-//		.onClick(new Function(() => println("Mira como te meneo")));
-
-		var button2 = new Button(container) //
-		button2.setCaption("Cancelar")
-			   .onClick(new Function(this.cancel));
-	}
-	
+  var home:Home[Socio]= MyVideoclub.getInstance().getHome(classOf[Socio]);
 
 	override def createMainTemplate(mainPanel:Panel )= {
 		this.setTitle("ABM de Socios");
@@ -47,17 +35,10 @@ abstract class AbstractSocio(owner:WindowOwner, model:Socio) extends Dialog[Soci
 		new Label(form).setText("Fecha de Ingreso");
 		new TextBox(form).bindValueToProperty(Socio.FECHA_INGRESO).setAdapter(new DateAdapter());
 		
-		// combo al enum de estado
-//		new Label(form).setText("Estado");
-//		new Selector(form).setContents(Arrays.asList(Socio.Estado.values()), "nombre").bindValueToProperty("estado");
-//		
-		new Label(form).setText("Ciudad");
-		new Selector(form).setContents(Videoclub.getInstance().getHome(classOf[Ciudad]).allInstances(), "nombre")
+		println("si borro esta linea no compila");
 	}
 	
 
 	def getHome() = this.home
-	
-	override def executeTask() = getHome().create(getModel())
 
 }

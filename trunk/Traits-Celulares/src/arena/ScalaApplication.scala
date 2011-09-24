@@ -10,7 +10,5 @@ import org.uqbar.commons.model.Search;
 
 class ScalaApplication extends Application {
 	
-	override def createMainWindow():Window[Search[Socio]] ={
-		return new Buscador(this);
-	}
+	override def createMainWindow():Window[Search[Socio]] =  new Buscador(this);
 }
