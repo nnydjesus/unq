@@ -66,8 +66,8 @@ public class ComparatorObjectDialog extends AbstractFieldObjectDialog<Comparator
 		Panel panel = new Panel(mainPanel);
 		panel.setLayout(new ColumnLayout(4));
 		
-		Object obj1 = this.getModel().getComparatorObject().getObj1();
-		Object obj2 = this.getModel().getComparatorObject().getObj2();
+		Object obj1 = this.getModel().getComparatorObject().getObject1();
+		Object obj2 = this.getModel().getComparatorObject().getObject2();
 		String clasObject1 = null;
 		String clasObject2 = null;
 		

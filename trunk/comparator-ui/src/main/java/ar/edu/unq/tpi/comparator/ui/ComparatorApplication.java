@@ -24,7 +24,7 @@ public class ComparatorApplication extends Application {
 	protected Window<?> createMainWindow() {
 		Person persona1 = new Person("nombre", 122, null, State.GRANDFATHER);
 		Employee persona2 = new Employee("nombre", 10, persona1, State.BOY, new Work("Pepito"));
-//		Object persona2 = new Object();
+//		Object persona2 = new String();
 		ComparationManager comparationManager = new ComparationManager();
 		ComparatorObject compareTo = comparationManager.compareTo(persona1, persona2);
 		

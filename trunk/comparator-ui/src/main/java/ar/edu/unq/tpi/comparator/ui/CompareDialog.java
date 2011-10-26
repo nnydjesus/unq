@@ -28,8 +28,7 @@ public class CompareDialog extends SimpleWindow<ComparatorControler> {
 	private static final long serialVersionUID = 1L;
 	private String bindProperty;
 
-	public CompareDialog(WindowOwner parent, ComparatorControler model,
-			String bindProperty) {
+	public CompareDialog(WindowOwner parent, ComparatorControler model, String bindProperty) {
 		super(parent, model);
 		this.bindProperty = bindProperty;
 	}
@@ -44,8 +43,7 @@ public class CompareDialog extends SimpleWindow<ComparatorControler> {
 	}
 
 	protected void createResultsGrid(Panel mainPanel) {
-		Table<FieldComparator> table = new Table<FieldComparator>(mainPanel,
-				FieldComparator.class);
+		Table<FieldComparator> table = new Table<FieldComparator>(mainPanel, FieldComparator.class);
 
 		table.bindContentsToProperty(bindProperty);
 		table.bindSelection(Search.SELECTED);
@@ -101,7 +99,6 @@ public class CompareDialog extends SimpleWindow<ComparatorControler> {
 	public void vewDetails() {
 		ReflectionUtils.invokeMethod(this, "createCompareDialog", new Object[] {getModel().getSelected()});
 	}
-	
 	
 	public void createCompareDialog(FieldToObject fieldComparatorObject){
 		new FieldToObjectDialog(this, (fieldComparatorObject)).open();
