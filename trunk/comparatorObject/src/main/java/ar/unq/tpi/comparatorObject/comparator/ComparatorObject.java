@@ -1,27 +1,27 @@
 package ar.unq.tpi.comparatorObject.comparator;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.uqbar.commons.model.Entity;
-import org.uqbar.commons.model.ObservableObject;
 
 public class ComparatorObject extends Entity {
 	private static final long serialVersionUID = 1L;
 	
 	private List<FieldComparator> fieldsEquals = new ArrayList<FieldComparator>(); // fields de los objetos que tienen el mismo valor
 	private List<FieldComparator> fieldsNotEquals = new ArrayList<FieldComparator>(); // fields de los objetos que tienen distinto valor
-	private List<FieldToObject> fieldsObj1 = new ArrayList<FieldToObject>(); //fields que estan el el objeto 1 y no el el 2
-	private List<FieldToObject> fieldsObj2 = new ArrayList<FieldToObject>(); //fields que estan en el objeto 2 y no en el 1
+	private List<FieldToObject> fieldsExclusiveToObject1 = new ArrayList<FieldToObject>(); //fields que estan el el objeto 1 y no el el 2
+	private List<FieldToObject> fieldsExclusiveToObject2 = new ArrayList<FieldToObject>(); //fields que estan en el objeto 2 y no en el 1
 	
-	private Object obj1;
-	private Object obj2;
+	private Object object1;
+	private Object object2;
 	
 	
 	public ComparatorObject(Object obj1, Object obj2) {
 		super();
-		this.obj1 = obj1;
-		this.obj2 = obj2;
+		this.object1 = obj1;
+		this.object2 = obj2;
 	}
 	
 	public void addFieldsEquals(FieldComparator comparator){
@@ -31,10 +31,10 @@ public class ComparatorObject extends Entity {
 		fieldsNotEquals.add(comparator);
 	}
 	public void addFieldsObj1(FieldToObject comparator){
-		fieldsObj1.add(comparator);
+		fieldsExclusiveToObject1.add(comparator);
 	}
 	public void addFieldsObj2(FieldToObject comparator){
-		fieldsObj2.add(comparator);
+		fieldsExclusiveToObject2.add(comparator);
 	}
 	//All
 	public void addAllFieldsEquals(List<FieldComparator> comparators){
@@ -44,10 +44,10 @@ public class ComparatorObject extends Entity {
 		fieldsNotEquals.addAll(comparators);
 	}
 	public void addAllFieldsObj1(List<FieldToObject> comparators){
-		fieldsObj1.addAll(comparators);
+		fieldsExclusiveToObject1.addAll(comparators);
 	}
 	public void addAllFieldsObj2(List<FieldToObject> comparators){
-		fieldsObj2.addAll(comparators);
+		fieldsExclusiveToObject2.addAll(comparators);
 	}
 
 	public List<FieldComparator> getFieldsEquals() {
@@ -66,36 +66,49 @@ public class ComparatorObject extends Entity {
 		this.fieldsNotEquals = fieldsNotEquals;
 	}
 
-	public List<FieldToObject> getFieldsObj1() {
-		return fieldsObj1;
+	public List<FieldToObject> getFieldsExclusiveToObject1() {
+		return fieldsExclusiveToObject1;
 	}
 
-	public void setFieldsObj1(List<FieldToObject> fieldsObj1) {
-		this.fieldsObj1 = fieldsObj1;
+	public void setFieldsExclusiveToObject1(List<FieldToObject> fieldsObj1) {
+		this.fieldsExclusiveToObject1 = fieldsObj1;
 	}
 
-	public List<FieldToObject> getFieldsObj2() {
-		return fieldsObj2;
+	public List<FieldToObject> getFieldsExclusiveToObject2() {
+		return fieldsExclusiveToObject2;
 	}
 
 	public void setFieldObj2(List<FieldToObject> fieldObj2) {
-		this.fieldsObj2 = fieldObj2;
+		this.fieldsExclusiveToObject2 = fieldObj2;
 	}
 
-	public Object getObj1() {
-		return obj1;
+	public Object getObject1() {
+		return object1;
 	}
 
-	public void setObj1(Object obj1) {
-		this.obj1 = obj1;
+	public void setObject1(Object obj1) {
+		this.object1 = obj1;
 	}
 
-	public Object getObj2() {
-		return obj2;
+	public Object getObject2() {
+		return object2;
 	}
 
-	public void setObj2(Object obj2) {
-		this.obj2 = obj2;
+	public void setObject2(Object obj2) {
+		this.object2 = obj2;
+	}
+
+	public void addCommonField(Field field, Object obj1, Object obj2, boolean equalValue) {
+		addCommonField(new FieldToCompare(field, obj1, obj2), equalValue);
+	}
+
+	public void addCommonField(FieldComparator fieldComparator, boolean equalValue) {
+		if (equalValue) {
+			this.addFieldsEquals(fieldComparator);
+		}
+		else {
+			this.addFieldsNotEquals(fieldComparator);
+		}
 	}
 	
 }

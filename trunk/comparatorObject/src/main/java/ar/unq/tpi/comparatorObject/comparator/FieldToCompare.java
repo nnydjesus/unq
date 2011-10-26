@@ -6,8 +6,10 @@ import org.uqbar.commons.utils.ReflectionUtils;
 
 import ar.unq.tpi.comparatorObject.managers.ToStringManager;
 
+/**
+ * @author nny
+ */
 public class FieldToCompare extends FieldComparator {
-	
 	private Object obj1;
 	private Object obj2;
 
@@ -43,12 +45,12 @@ public class FieldToCompare extends FieldComparator {
 		ToStringManager.toStringObject(ReflectionUtils.readField(obj2, getField()));
 	}
 	
-	public String getValueObject1(){
-		return ToStringManager.toStringObject(ReflectionUtils.readField(obj1, getField()));
+	public String getValueObject1() {
+		return ToStringManager.toStringObject(ReflectionUtils.readField(this.obj1, getField()));
 	}
-	
-	public String getValueObject2(){
-		return ToStringManager.toStringObject(ReflectionUtils.readField(obj2, getField()));
+
+	public String getValueObject2() {
+		return ToStringManager.toStringObject(ReflectionUtils.readField(this.obj2, getField()));
 	}
 	
 	@Override

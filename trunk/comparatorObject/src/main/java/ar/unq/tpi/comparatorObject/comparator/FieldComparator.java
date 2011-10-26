@@ -4,7 +4,11 @@ import java.lang.reflect.Field;
 
 import org.uqbar.commons.model.ObservableObject;
 
-public abstract  class FieldComparator extends ObservableObject {
+/**
+ * 
+ * @author nny
+ */
+public abstract class FieldComparator extends ObservableObject {
 	private Field field;
 
 	public FieldComparator(Field field) {
@@ -21,9 +25,8 @@ public abstract  class FieldComparator extends ObservableObject {
 		return field;
 	}
 	
-	public String getFieldName(){
+	public String getFieldName() {
 		return getField().getName();
 	}
-	
 
 }
