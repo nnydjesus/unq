@@ -32,11 +32,11 @@ public class ComparatorControler extends ObservableObject{
 	}
 	
 	public List<FieldToObject> getFieldsObject1() {
-		return comparatorObject.getFieldsObj1();
+		return comparatorObject.getFieldsExclusiveToObject1();
 	}
 	
 	public List<FieldToObject> getFieldsObject2() {
-		return comparatorObject.getFieldsObj2();
+		return comparatorObject.getFieldsExclusiveToObject2();
 	}
 	
 	public void setSelected(FieldComparator selected) {
