@@ -2,18 +2,19 @@ package ar.unq.tpi.comparatorObject.comparator;
 
 import java.lang.reflect.Field;
 
-import org.uqbar.commons.model.ObservableObject;
 import org.uqbar.commons.utils.ReflectionUtils;
 
 import ar.unq.tpi.comparatorObject.managers.ToStringManager;
 
+/**
+ * 
+ * @author nny
+ */
 public class FieldToObject extends FieldComparator {
-	
 	public static final String FIELD = "field";
 	public static final String OBJECT = "object";
 	
 	private Object object;
-	
 	
 	public FieldToObject(Field field, Object object) {
 		super(field);
@@ -24,12 +25,11 @@ public class FieldToObject extends FieldComparator {
 		return object;
 	}
 
-
 	public void setObject(Object object) {
 		this.object = object;
 	}
 	
-	public String getObjectToString(){
+	public String getObjectToString() {
 		return showValue();
 	}
 
@@ -44,6 +44,5 @@ public class FieldToObject extends FieldComparator {
 		" = " + 
 		showValue();
 	}
-	
 	
 }

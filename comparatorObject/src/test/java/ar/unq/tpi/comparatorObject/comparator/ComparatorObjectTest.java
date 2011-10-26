@@ -16,47 +16,50 @@ public class ComparatorObjectTest {
 	
 	@Test
 	public void compareToEquals(){
-		Object object1 = createFakeObject();
-		Object object2 = createFakeObject();
+		Object object1 = createPerson();
+		Object object2 = createPerson();
 		
 		ComparatorObject compareTo = new ComparationManager().compareTo(object1, object2);
 		
-		Assert.assertEquals(object1, compareTo.getObj1());
-		Assert.assertEquals(object2, compareTo.getObj2());
+		Assert.assertEquals(object1, compareTo.getObject1());
+		Assert.assertEquals(object2, compareTo.getObject2());
 		
-		Assert.assertTrue(compareTo.getFieldsObj1().isEmpty());
-		Assert.assertTrue(compareTo.getFieldsObj2().isEmpty());
+		Assert.assertTrue(compareTo.getFieldsExclusiveToObject1().isEmpty());
+		Assert.assertTrue(compareTo.getFieldsExclusiveToObject2().isEmpty());
 
 		Assert.assertTrue(compareTo.getFieldsNotEquals().isEmpty());
+		
 		Assert.assertEquals(4, compareTo.getFieldsEquals().size());
 		
 	}
 	
 	@Test
 	public void compareToFail(){
-		Object object1 = createFakeObject();
-		Object object2 = createFakeObject2();
+		Object person = createPerson();
+		Object employee = createEmployee();
 		
-		ComparatorObject compareTo = new ComparationManager().compareTo(object1, object2);
+		ComparatorObject compareTo = new ComparationManager().compareTo(person, employee);
 		
-		Assert.assertEquals(object1, compareTo.getObj1());
-		Assert.assertEquals(object2, compareTo.getObj2());
+		Assert.assertEquals(person, compareTo.getObject1());
+		Assert.assertEquals(employee, compareTo.getObject2());
 		
-		Assert.assertTrue(compareTo.getFieldsObj1().isEmpty());
+		Assert.assertTrue(compareTo.getFieldsExclusiveToObject1().isEmpty());
 		
-		Assert.assertEquals(1, compareTo.getFieldsObj2().size());
+		Assert.assertEquals(1, compareTo.getFieldsExclusiveToObject2().size());
+		
 		Assert.assertEquals(3, compareTo.getFieldsNotEquals().size());
+		
 		Assert.assertEquals(1, compareTo.getFieldsEquals().size());
 		
 	}
 	
 	
 
-	protected Object createFakeObject() {
+	protected Object createPerson() {
 		return new Person("nombre", 15, null, State.BOY);
 	}
 	
-	protected Object createFakeObject2() {
+	protected Object createEmployee() {
 		return new Employee("nombre2", 55, null, State.GRANDFATHER, new Work("UNQ"));
 	}
 

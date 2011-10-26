@@ -16,27 +16,24 @@ import ar.unq.tpi.comparatorObject.predicate.ComparataroFieldPredicate;
 public class ComparationManager {
 	
 	public ComparatorObject compareTo(Object obj1, Object obj2) {
-//        if(canMach(obj1, obj2)){
-        	ComparatorObject comparatorObject = new ComparatorObject(obj1, obj2);
-        	ComparataroFieldPredicate comparataroFieldPredicate = new ComparataroFieldPredicate();
-        	
-        	List<Field> fieldsObj1 = ReflectionUtils.getAllFieldToPredicate(obj1, comparataroFieldPredicate);
-        	List<Field> fieldsObj2 = ReflectionUtils.getAllFieldToPredicate(obj2, comparataroFieldPredicate);
+    	ComparatorObject comparatorObject = new ComparatorObject(obj1, obj2);
+    	ComparataroFieldPredicate comparataroFieldPredicate = new ComparataroFieldPredicate();
+    	
+    	List<Field> fieldsObject1 = ReflectionUtils.getAllFieldToPredicate(obj1, comparataroFieldPredicate);
+    	List<Field> fieldsObject2 = ReflectionUtils.getAllFieldToPredicate(obj2, comparataroFieldPredicate);
 
-        	List<Field> commonsFields = ListUtils.intersection(fieldsObj1, fieldsObj2);
-        	List<Field> differentFieldsObj1 = ListUtils.subtract(fieldsObj1, fieldsObj2);
-        	List<Field> differentFieldsObj2 = ListUtils.subtract(fieldsObj2, fieldsObj1);
-        	
-        	processCommonsField(commonsFields, obj1, obj2, comparatorObject);
-        	comparatorObject.addAllFieldsObj1(getFieldsToObject(differentFieldsObj1, obj1));
-        	comparatorObject.addAllFieldsObj2(getFieldsToObject(differentFieldsObj2, obj2));
-        	return comparatorObject;
-//        }
-//        return null;
+    	List<Field> commonsFields = ListUtils.intersection(fieldsObject1, fieldsObject2);
+    	processCommonsField(commonsFields, obj1, obj2, comparatorObject);
+    	
+    	List<Field> differentFieldsObj1 = ListUtils.subtract(fieldsObject1, fieldsObject2);
+    	List<Field> differentFieldsObj2 = ListUtils.subtract(fieldsObject2, fieldsObject1);
+    	
+    	comparatorObject.addAllFieldsObj1(getFieldsToObject(differentFieldsObj1, obj1));
+    	comparatorObject.addAllFieldsObj2(getFieldsToObject(differentFieldsObj2, obj2));
+    	return comparatorObject;
 	}
 	
-	private List<FieldToObject> getFieldsToObject(
-			List<Field> differentFieldsObj2, Object object) {
+	private List<FieldToObject> getFieldsToObject(List<Field> differentFieldsObj2, Object object) {
 		List<FieldToObject> fieldToObjects = new ArrayList<FieldToObject>();
 		for (Field field : differentFieldsObj2) {
 			fieldToObjects.add(new FieldToObject(field, object));
@@ -44,49 +41,26 @@ public class ComparationManager {
 		return fieldToObjects;
 	}
 
-	protected void processCommonsField(List<Field> commonsFields, Object obj1, Object obj2, ComparatorObject comparatorObject){
-		for (Field field : commonsFields) {
-			if(ReflectionUtils.isBasicType(field.getType())){
-				if(EqualsManager.equalsValueField(field, obj1, obj2)){
-					comparatorObject.addFieldsEquals(new FieldToCompare(field, obj1, obj2));
-				}else{
-					comparatorObject.addFieldsNotEquals(new FieldToCompare(field, obj1, obj2));
-				}
-			}else{
-				Object fieldValueObj1 = getFieldValue(field, obj1);
-				Object fieldValueObj2 = getFieldValue(field, obj2);
-				if(EqualsManager.equalsObjects(fieldValueObj1, fieldValueObj2)){
-					comparatorObject.addFieldsEquals(new FieldToCompare(field, obj1, obj2));
-				}else{
-					comparatorObject.addFieldsNotEquals(new FieldComparatorObject(field, this.compareTo(fieldValueObj1, fieldValueObj2)));
+	protected void processCommonsField(List<Field> commonFields, Object obj1, Object obj2, ComparatorObject comparatorObject){
+		for (Field field : commonFields) {
+			Object fieldValueObj1 = ReflectionUtils.readField(obj1, field);
+			Object fieldValueObj2 = ReflectionUtils.readField(obj2, field);
+			
+			if (ReflectionUtils.isBasicType(field.getType())) {
+				comparatorObject.addCommonField(field, obj1, obj2, EqualsManager.equalsValueField(fieldValueObj1, fieldValueObj2));
+			}
+			else {
+				if (EqualsManager.equalsObjects(fieldValueObj1, fieldValueObj2)) {
+					comparatorObject.addCommonField(new FieldToCompare(field, obj1, obj2), true);
+				} 
+				else {
+					comparatorObject.addCommonField(new FieldComparatorObject(field, this.compareTo(fieldValueObj1, fieldValueObj2)), false);
 				}
 			}
 		}
 	}
 	
-	private Boolean canMach(Object object1, Object object2) {
-		if (object1 == object2) {
-            return true;
-        }
-        if (object1 == null || object2 == null) {
-            return false;
-        }
-		
-        Class lhsClass = object1.getClass();
-        Class rhsClass = object2.getClass();
-        if (lhsClass.isInstance(object2)) {
-        	return true;
-        } else if (rhsClass.isInstance(object1)) {
-        	return true;
-        } else {
-            return false;
-        }
-	}
-	
 	//Helpers
-	
-	private Object getFieldValue(Field field, Object obj1) {
-		return ReflectionUtils.readField(obj1, field);
-	}
+
 
 }
